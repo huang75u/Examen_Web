@@ -22,7 +22,7 @@ export class AppComponent {
   constructor() {
     effect(() => {
       const user = this.authService.currentUser();
-      console.log('User changed:', user?.username);
+      console.log('Utilisateur modifié:', user?.username);
       if (user) {
         setTimeout(() => {
           this.heroService.reloadUserHeroes();

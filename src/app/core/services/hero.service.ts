@@ -18,7 +18,7 @@ export class HeroService {
   private getStorageKey(): string {
     const userId = this.authService.currentUser()?.id;
     if (!userId) {
-      console.warn('No user logged in, cannot determine storage key');
+      console.warn('Aucun utilisateur connecté, impossible de déterminer la clé de stockage');
       return 'marvel_heroes_temp';
     }
     return `marvel_heroes_${userId}`;
@@ -27,20 +27,20 @@ export class HeroService {
   private loadFromStorage(): void {
     const userId = this.authService.currentUser()?.id;
     if (!userId) {
-      console.warn('Cannot load heroes: no user logged in');
+      console.warn('Impossible de charger les héros : aucun utilisateur connecté');
       this.heroes.set([]);
       return;
     }
 
     const storageKey = this.getStorageKey();
-    console.log('Loading heroes for user:', userId, 'with key:', storageKey);
+    console.log('Chargement des héros pour l\'utilisateur:', userId, 'avec clé:', storageKey);
     const storedHeroes = this.storageService.getItem<Hero[]>(storageKey);
     
     if (storedHeroes && storedHeroes.length > 0) {
-      console.log('Found existing heroes:', storedHeroes.length);
+      console.log('Héros existants trouvés:', storedHeroes.length);
       this.heroes.set(storedHeroes);
     } else {
-      console.log('No existing heroes, creating default set');
+      console.log('Aucun héros existant, création de l\'ensemble par défaut');
       const userDefaultHeroes = JSON.parse(JSON.stringify(defaultHeroes));
       this.heroes.set(userDefaultHeroes);
       this.storageService.setItem(storageKey, userDefaultHeroes);
@@ -50,17 +50,17 @@ export class HeroService {
   private saveToStorage(): void {
     const userId = this.authService.currentUser()?.id;
     if (!userId) {
-      console.warn('Cannot save heroes: no user logged in');
+      console.warn('Impossible de sauvegarder les héros : aucun utilisateur connecté');
       return;
     }
 
     const storageKey = this.getStorageKey();
-    console.log('Saving heroes for user:', userId, 'with key:', storageKey);
+    console.log('Sauvegarde des héros pour l\'utilisateur:', userId, 'avec clé:', storageKey);
     this.storageService.setItem(storageKey, this.heroes());
   }
 
   reloadUserHeroes(): void {
-    console.log('Reloading user heroes...');
+    console.log('Rechargement des héros de l\'utilisateur...');
     this.loadFromStorage();
   }
 
