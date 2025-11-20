@@ -1,86 +1,106 @@
 # Marvel Heroes Manager
 
-一个使用 Angular 18 构建的 Marvel 英雄管理应用。
+Une application de gestion des héros Marvel construite avec Angular 18.
 
-## 功能特性
+## Fonctionnalités
 
-- 🦸 英雄管理：添加、编辑、删除英雄信息
-- ⭐ 收藏功能：标记和管理你喜欢的英雄
-- 🏷️ 标签分类：通过标签组织和筛选英雄
-- 🔍 搜索功能：按反派名称搜索英雄
-- 👤 用户认证：注册和登录系统
-- 💾 本地存储：数据持久化到 localStorage
+- 🦸 **Gestion des héros** : Ajouter, modifier et supprimer des informations sur les héros
+- ⭐ **Favoris** : Marquer et gérer vos héros préférés
+- 🏷️ **Classification par labels** : Organiser et filtrer les héros par labels
+- 🔍 **Recherche** : Rechercher des héros par nom de némésis
+- 👤 **Authentification** : Système d'inscription et de connexion
+- 💾 **Stockage local** : Persistance des données dans localStorage
+- 📱 **Responsive Design** : Interface adaptative (4 cartes par ligne sur desktop, 2 sur mobile)
 
-## 技术栈
+## Stack Technique
 
-- **Angular 18** - 使用 standalone components 和 signals
-- **TypeScript 5.4** - 类型安全
-- **SCSS** - 样式预处理器
-- **RxJS** - 响应式编程
-- **Angular Router** - 路由管理
+- **Angular 18** - Utilisation de standalone components et signals
+- **TypeScript 5.4** - Typage fort
+- **SCSS** - Préprocesseur de styles
+- **RxJS** - Programmation réactive
+- **Angular Router** - Gestion du routage
 
-## 项目结构
+## Structure du Projet
 
 ```
 src/
 ├── app/
 │   ├── core/
-│   │   └── services/          # 核心服务 (auth, hero, storage)
+│   │   └── services/          # Services principaux (auth, hero, storage)
 │   ├── feature/
-│   │   ├── heroes/            # 英雄列表页
-│   │   ├── favorites/         # 收藏页
-│   │   ├── labels/            # 标签分类页
-│   │   ├── search/            # 搜索页
-│   │   └── login/             # 登录页
+│   │   ├── heroes/            # Page liste des héros
+│   │   ├── favorites/         # Page favoris
+│   │   ├── labels/            # Page classification par labels
+│   │   ├── search/            # Page recherche
+│   │   └── login/             # Page connexion
 │   ├── shared/
-│   │   ├── components/        # 共享组件 (hero-card, hero-form, navigation)
-│   │   └── models/            # 数据模型
-│   ├── data/                  # 默认数据
-│   ├── app.component.*        # 根组件
-│   ├── app.routes.ts          # 路由配置
-│   └── app.config.ts          # 应用配置
-├── assets/                    # 静态资源
-├── styles.scss               # 全局样式
-└── main.ts                   # 应用入口
+│   │   ├── components/        # Composants partagés (hero-card, hero-form, navigation)
+│   │   └── models/            # Modèles de données
+│   ├── data/                  # Données par défaut
+│   ├── app.component.*        # Composant racine
+│   ├── app.routes.ts          # Configuration des routes
+│   └── app.config.ts          # Configuration de l'application
+├── assets/                    # Ressources statiques
+├── styles.scss               # Styles globaux
+└── main.ts                   # Point d'entrée de l'application
+```
 
-## 开发指南
+## Guide de Développement
 
-### 安装依赖
+### Installation des dépendances
 
 ```bash
 npm install
 ```
 
-### 启动开发服务器
+### Démarrer le serveur de développement
 
 ```bash
 npm start
 ```
 
-应用将在 `http://localhost:4200/` 运行
+L'application sera accessible sur `http://localhost:4200/`
 
-### 构建生产版本
+### Construire la version de production
 
 ```bash
 npm run build
 ```
 
-构建产物将生成到 `dist/` 目录
+Les fichiers de production seront générés dans le répertoire `dist/`
 
-## 编码规范
+## Standards de Codage
 
-本项目遵循以下编码规范：
+Ce projet suit les standards suivants :
 
-- ✅ 使用 **standalone components**
-- ✅ 使用 **signals** 进行状态管理
-- ✅ 使用 **OnPush** 变更检测策略
-- ✅ 使用 **inject()** 函数进行依赖注入
-- ✅ 使用 **input()** 和 **output()** 处理组件通信
-- ✅ 使用 Angular 17+ 新语法 (@if, @for, @switch)
-- ✅ 所有函数显式声明返回类型
-- ✅ 使用单引号
-- ✅ 遵循 Angular 风格指南
+- ✅ Utilisation de **standalone components**
+- ✅ Utilisation de **signals** pour la gestion d'état
+- ✅ Stratégie de détection de changement **OnPush**
+- ✅ Fonction **inject()** pour l'injection de dépendances
+- ✅ **input()** et **output()** pour la communication entre composants
+- ✅ Nouvelle syntaxe Angular 17+ (@if, @for, @switch)
+- ✅ Types de retour explicites pour toutes les fonctions
+- ✅ Utilisation de guillemets simples
+- ✅ Respect du guide de style Angular
 
-## 许可证
+## Fonctionnalités Détaillées
+
+### Gestion Multi-Utilisateurs
+- Chaque utilisateur possède sa propre collection de héros
+- Données isolées par utilisateur dans le localStorage
+- Favoris spécifiques à chaque utilisateur
+
+### Interface Utilisateur
+- Design moderne et épuré
+- Animations fluides (hover, clic sur favoris)
+- Icône cœur pour les favoris (🤍 → ❤️)
+- Layout responsive adaptatif
+
+### Persistance des Données
+- Stockage dans `localStorage`
+- Format : `marvel_heroes_{userId}` pour l'isolation des données
+- Chargement automatique des héros par défaut pour les nouveaux utilisateurs
+
+## Licence
 
 MIT
