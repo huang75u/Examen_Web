@@ -12,7 +12,7 @@ export class HeroService {
   heroes = signal<Hero[]>([]);
 
   constructor() {
-    // 不在构造函数中加载，等待用户登录后再加载
+    
   }
 
   private getStorageKey(): string {

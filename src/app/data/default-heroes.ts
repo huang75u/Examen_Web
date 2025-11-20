@@ -7,7 +7,7 @@ export const defaultHeroes: Hero[] = [
     team: 'Avengers',
     nemesis: 'Green Goblin',
     firstAppearance: '1962-08-01',
-    image: 'assets/data/spider-man.png',
+    image: 'assets/data/spider-man.jpg',
     labels: ['Hero', 'Web-Slinger'],
   },
   {
@@ -25,7 +25,7 @@ export const defaultHeroes: Hero[] = [
     team: 'Avengers',
     nemesis: 'Red Skull',
     firstAppearance: '1941-03-01',
-    image: 'assets/data/captain america.png',
+    image: 'assets/data/captain america.jpg',
     labels: ['Hero', 'Super Soldier', 'Leader'],
   },
   {
@@ -52,7 +52,7 @@ export const defaultHeroes: Hero[] = [
     team: 'X-Force',
     nemesis: 'Ajax',
     firstAppearance: '1991-02-01',
-    image: 'assets/data/deadpool.png',
+    image: 'assets/data/deadpool.jpg',
     labels: ['Anti-Hero', 'Mercenary', 'Regeneration'],
   },
   {
