@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, effect, inject, input, output, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, inject, input, OnInit, output, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Hero } from '../../models/hero.model';
 import { HeroFormData, ValidationErrors } from '../../models/hero-form.model';
@@ -12,7 +12,7 @@ import { HeroService } from '../../../core/services/hero.service';
   imports: [FormsModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HeroFormComponent {
+export class HeroFormComponent implements OnInit {
   private readonly heroService = inject(HeroService);
 
   hero = input<Hero | undefined>();
@@ -34,15 +34,39 @@ export class HeroFormComponent {
     effect(() => {
       const currentHero = this.hero();
       if (currentHero) {
-        this.formData.set({
-          name: currentHero.name,
-          team: currentHero.team || '',
-          nemesis: currentHero.nemesis,
-          firstAppearance: currentHero.firstAppearance,
-          image: currentHero.image || '',
-          labels: currentHero.labels,
-        });
+        this.loadHeroData(currentHero);
+      } else {
+        this.resetForm();
       }
+    });
+  }
+
+  ngOnInit(): void {
+    const currentHero = this.hero();
+    if (currentHero) {
+      this.loadHeroData(currentHero);
+    }
+  }
+
+  private loadHeroData(hero: Hero): void {
+    this.formData.set({
+      name: hero.name,
+      team: hero.team || '',
+      nemesis: hero.nemesis,
+      firstAppearance: hero.firstAppearance,
+      image: hero.image || '',
+      labels: [...hero.labels],
+    });
+  }
+
+  private resetForm(): void {
+    this.formData.set({
+      name: '',
+      team: '',
+      nemesis: '',
+      firstAppearance: '',
+      image: '',
+      labels: [],
     });
   }
 
