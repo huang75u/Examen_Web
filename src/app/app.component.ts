@@ -24,12 +24,10 @@ export class AppComponent {
       const user = this.authService.currentUser();
       console.log('User changed:', user?.username);
       if (user) {
-        // 延迟加载以确保服务已完全初始化
         setTimeout(() => {
           this.heroService.reloadUserHeroes();
         }, 0);
       } else {
-        // 用户退出时清空英雄列表
         this.heroService.heroes.set([]);
       }
     });

@@ -5,18 +5,20 @@
     } @else {
       <div class="no-image">Pas d'image</div>
     }
-    <button
-      class="favorite-btn"
-      [class.active]="isFavorite"
-      (click)="toggleFavorite()"
-      [title]="isFavorite ? 'Retirer des favoris' : 'Ajouter aux favoris'"
-    >
-      {{ isFavorite ? '★' : '☆' }}
-    </button>
   </div>
 
   <div class="hero-card-content">
-    <h3>{{ hero().name }}</h3>
+    <div class="hero-header">
+      <h3>{{ hero().name }}</h3>
+      <button
+        class="favorite-btn"
+        [class.active]="isFavorite"
+        (click)="toggleFavorite()"
+        [title]="isFavorite ? 'Retirer des favoris' : 'Ajouter aux favoris'"
+      >
+        <span class="heart">{{ isFavorite ? '❤' : '🤍' }}</span>
+      </button>
+    </div>
 
     @if (hero().team) {
       <p class="hero-team">
