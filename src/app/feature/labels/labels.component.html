@@ -1,0 +1,67 @@
+<div class="page-container">
+  <div class="page-header">
+    <h1>Héros par labels</h1>
+  </div>
+
+  <div class="labels-filter">
+    <button
+      class="label-filter-btn"
+      [class.active]="selectedLabel() === null"
+      (click)="handleSelectLabel(null)"
+    >
+      Tous
+    </button>
+    @for (label of allLabels(); track label) {
+      <button
+        class="label-filter-btn"
+        [class.active]="selectedLabel() === label"
+        (click)="handleSelectLabel(label)"
+      >
+        {{ label }} ({{ herosByLabel()[label].length }})
+      </button>
+    }
+  </div>
+
+  @if (selectedLabel() === null) {
+    @for (label of allLabels(); track label) {
+      <div class="label-group">
+        <h2 class="label-group-title">{{ label }}</h2>
+        <div class="heroes-grid">
+          @for (hero of herosByLabel()[label]; track hero.id) {
+            <app-hero-card [hero]="hero" (heroEdit)="handleEdit($event)" (heroDelete)="handleDelete($event)" />
+          }
+        </div>
+      </div>
+    }
+
+    @if (heroesWithoutLabels().length > 0) {
+      <div class="label-group">
+        <h2 class="label-group-title">Sans label</h2>
+        <div class="heroes-grid">
+          @for (hero of heroesWithoutLabels(); track hero.id) {
+            <app-hero-card [hero]="hero" (heroEdit)="handleEdit($event)" (heroDelete)="handleDelete($event)" />
+          }
+        </div>
+      </div>
+    }
+
+    @if (allLabels().length === 0 && heroesWithoutLabels().length === 0) {
+      <div class="empty-state">
+        <p>Aucun héros avec des labels</p>
+      </div>
+    }
+  } @else {
+    <div class="label-group">
+      <div class="heroes-grid">
+        @for (hero of herosByLabel()[selectedLabel()!]; track hero.id) {
+          <app-hero-card [hero]="hero" (heroEdit)="handleEdit($event)" (heroDelete)="handleDelete($event)" />
+        }
+      </div>
+    </div>
+  }
+
+  @if (showForm()) {
+    <app-hero-form [hero]="editingHero()" (closeForm)="handleCloseForm()" />
+  }
+</div>
+

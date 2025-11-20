@@ -1,0 +1,11 @@
+@if (!currentUser()) {
+  <app-login />
+} @else {
+  <div class="app">
+    <app-navigation />
+    <main class="main-content">
+      <router-outlet />
+    </main>
+  </div>
+}
+

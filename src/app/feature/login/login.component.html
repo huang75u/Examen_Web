@@ -1,0 +1,48 @@
+<div class="login-container">
+  <div class="login-box">
+    <h1>Marvel Heroes Manager</h1>
+    <h2>{{ isRegister() ? 'Inscription' : 'Connexion' }}</h2>
+
+    <form (ngSubmit)="handleSubmit()">
+      <div class="form-group">
+        <label for="username">Nom d'utilisateur</label>
+        <input
+          type="text"
+          id="username"
+          [ngModel]="username()"
+          (ngModelChange)="username.set($event)"
+          name="username"
+          placeholder="Entrez votre nom d'utilisateur"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Mot de passe</label>
+        <input
+          type="password"
+          id="password"
+          [ngModel]="password()"
+          (ngModelChange)="password.set($event)"
+          name="password"
+          placeholder="Entrez votre mot de passe"
+        />
+      </div>
+
+      @if (error()) {
+        <div class="error-message">{{ error() }}</div>
+      }
+
+      <button type="submit" class="btn-primary">
+        {{ isRegister() ? 'S\'inscrire' : 'Se connecter' }}
+      </button>
+    </form>
+
+    <p class="toggle-mode">
+      {{ isRegister() ? 'Déjà un compte ? ' : 'Pas encore de compte ? ' }}
+      <button type="button" class="link-button" (click)="handleToggleMode()">
+        {{ isRegister() ? 'Se connecter' : 'S\'inscrire' }}
+      </button>
+    </p>
+  </div>
+</div>
+

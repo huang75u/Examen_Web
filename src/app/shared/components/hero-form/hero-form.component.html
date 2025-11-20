@@ -1,0 +1,107 @@
+<div class="modal-overlay" (click)="handleOverlayClick()">
+  <div class="modal-content" (click)="handleContentClick($event)">
+    <h2>{{ hero() ? 'Modifier le héros' : 'Ajouter un héros' }}</h2>
+
+    <form (ngSubmit)="handleSubmit()">
+      <div class="form-group">
+        <label for="name">Nom *</label>
+        <input
+          type="text"
+          id="name"
+          [ngModel]="formData().name"
+          (ngModelChange)="updateField('name', $event)"
+          name="name"
+          [class.error]="errors().name"
+        />
+        @if (errors().name) {
+          <span class="error-text">{{ errors().name }}</span>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="team">Équipe</label>
+        <input
+          type="text"
+          id="team"
+          [ngModel]="formData().team"
+          (ngModelChange)="updateField('team', $event)"
+          name="team"
+          placeholder="Ex: Avengers, X-Men..."
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="nemesis">Némésis *</label>
+        <input
+          type="text"
+          id="nemesis"
+          [ngModel]="formData().nemesis"
+          (ngModelChange)="updateField('nemesis', $event)"
+          name="nemesis"
+          [class.error]="errors().nemesis"
+        />
+        @if (errors().nemesis) {
+          <span class="error-text">{{ errors().nemesis }}</span>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="firstAppearance">Date de première apparition *</label>
+        <input
+          type="date"
+          id="firstAppearance"
+          [ngModel]="formData().firstAppearance"
+          (ngModelChange)="updateField('firstAppearance', $event)"
+          name="firstAppearance"
+          [class.error]="errors().firstAppearance"
+        />
+        @if (errors().firstAppearance) {
+          <span class="error-text">{{ errors().firstAppearance }}</span>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="image">URL de l'image</label>
+        <input
+          type="url"
+          id="image"
+          [ngModel]="formData().image"
+          (ngModelChange)="updateField('image', $event)"
+          name="image"
+          placeholder="https://example.com/image.jpg"
+        />
+      </div>
+
+      <div class="form-group">
+        <label>Labels</label>
+        <div class="label-input-group">
+          <input
+            type="text"
+            [ngModel]="newLabel()"
+            (ngModelChange)="newLabel.set($event)"
+            name="newLabel"
+            (keypress.enter)="$event.preventDefault(); handleAddLabel()"
+            placeholder="Ajouter un label"
+          />
+          <button type="button" (click)="handleAddLabel()" class="btn-add-label">Ajouter</button>
+        </div>
+        @if (formData().labels.length > 0) {
+          <div class="labels-list">
+            @for (label of formData().labels; track label) {
+              <span class="label-tag">
+                {{ label }}
+                <button type="button" (click)="handleRemoveLabel(label)" class="remove-label">×</button>
+              </span>
+            }
+          </div>
+        }
+      </div>
+
+      <div class="form-actions">
+        <button type="button" (click)="handleClose()" class="btn-cancel">Annuler</button>
+        <button type="submit" class="btn-primary">{{ hero() ? 'Modifier' : 'Ajouter' }}</button>
+      </div>
+    </form>
+  </div>
+</div>
+

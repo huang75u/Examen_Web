@@ -1,102 +1,86 @@
-# Marvel Heroes Manager 🦸‍♂️
+# Marvel Heroes Manager
 
-Application de gestion des héros Marvel avec React, TypeScript, et Vite.
+一个使用 Angular 18 构建的 Marvel 英雄管理应用。
 
-## Fonctionnalités
+## 功能特性
 
-### ✅ Gestion des Héros
-- **Liste complète** : Affichage de tous les héros sous forme de cartes
-- **Ajouter** : Créer un nouveau héros avec toutes ses informations
-- **Modifier** : Éditer les informations d'un héros existant
-- **Supprimer** : Retirer un héros de la base de données
+- 🦸 英雄管理：添加、编辑、删除英雄信息
+- ⭐ 收藏功能：标记和管理你喜欢的英雄
+- 🏷️ 标签分类：通过标签组织和筛选英雄
+- 🔍 搜索功能：按反派名称搜索英雄
+- 👤 用户认证：注册和登录系统
+- 💾 本地存储：数据持久化到 localStorage
 
-### 🔍 Recherche
-- **Recherche par Némésis** : Trouver rapidement un héros par le nom de son ennemi juré
+## 技术栈
 
-### ⭐ Favoris
-- **Système de favoris** : Ajouter/retirer des héros de vos favoris
-- **Icône dynamique** : L'étoile change d'apparence selon le statut favori
-- **Page dédiée** : Voir tous vos héros favoris en un seul endroit
+- **Angular 18** - 使用 standalone components 和 signals
+- **TypeScript 5.4** - 类型安全
+- **SCSS** - 样式预处理器
+- **RxJS** - 响应式编程
+- **Angular Router** - 路由管理
 
-### 🏷️ Labels
-- **Gestion des labels** : Ajouter/supprimer des labels pour chaque héros
-- **Vue groupée** : Afficher les héros regroupés par leurs labels
-- **Filtrage** : Filtrer les héros par label spécifique
+## 项目结构
 
-### 🔐 Authentification
-- **Connexion/Inscription** : Système d'authentification complet
-- **Données personnelles** : Les favoris sont stockés par utilisateur
-- **Persistance** : Toutes les données sont sauvegardées localement (localStorage)
+```
+src/
+├── app/
+│   ├── core/
+│   │   └── services/          # 核心服务 (auth, hero, storage)
+│   ├── feature/
+│   │   ├── heroes/            # 英雄列表页
+│   │   ├── favorites/         # 收藏页
+│   │   ├── labels/            # 标签分类页
+│   │   ├── search/            # 搜索页
+│   │   └── login/             # 登录页
+│   ├── shared/
+│   │   ├── components/        # 共享组件 (hero-card, hero-form, navigation)
+│   │   └── models/            # 数据模型
+│   ├── data/                  # 默认数据
+│   ├── app.component.*        # 根组件
+│   ├── app.routes.ts          # 路由配置
+│   └── app.config.ts          # 应用配置
+├── assets/                    # 静态资源
+├── styles.scss               # 全局样式
+└── main.ts                   # 应用入口
 
-### ✔️ Validations
-- **Nom** : Obligatoire
-- **Team** : Optionnel
-- **Némésis** : Obligatoire
-- **Date de première apparition** : Obligatoire et doit être une date valide
-- **Image** : Optionnel (URL)
+## 开发指南
 
-## Installation
+### 安装依赖
 
-1. Installer les dépendances :
 ```bash
 npm install
 ```
 
-2. Lancer le serveur de développement :
+### 启动开发服务器
+
 ```bash
-npm run dev
+npm start
 ```
 
-3. Ouvrir votre navigateur à l'adresse affichée (généralement http://localhost:5173)
+应用将在 `http://localhost:4200/` 运行
 
-## Build pour la production
+### 构建生产版本
 
 ```bash
 npm run build
 ```
 
-## Technologies utilisées
+构建产物将生成到 `dist/` 目录
 
-- **React 18** : Bibliothèque UI
-- **TypeScript** : Typage statique
-- **Vite** : Build tool rapide
-- **React Router** : Navigation
-- **CSS3** : Styles modernes avec gradients et animations
+## 编码规范
 
-## Structure du projet
+本项目遵循以下编码规范：
 
-```
-src/
-├── components/        # Composants réutilisables
-│   ├── HeroCard.tsx
-│   ├── HeroForm.tsx
-│   ├── Login.tsx
-│   └── Navigation.tsx
-├── pages/            # Pages de l'application
-│   ├── HeroesPage.tsx
-│   ├── FavoritesPage.tsx
-│   ├── LabelsPage.tsx
-│   └── SearchPage.tsx
-├── context/          # Gestion d'état globale
-│   └── AppContext.tsx
-├── data/             # Données par défaut
-│   └── defaultHeroes.ts
-├── types.ts          # Types TypeScript
-├── App.tsx           # Composant principal
-├── main.tsx          # Point d'entrée
-└── styles.css        # Styles globaux
-```
+- ✅ 使用 **standalone components**
+- ✅ 使用 **signals** 进行状态管理
+- ✅ 使用 **OnPush** 变更检测策略
+- ✅ 使用 **inject()** 函数进行依赖注入
+- ✅ 使用 **input()** 和 **output()** 处理组件通信
+- ✅ 使用 Angular 17+ 新语法 (@if, @for, @switch)
+- ✅ 所有函数显式声明返回类型
+- ✅ 使用单引号
+- ✅ 遵循 Angular 风格指南
 
-## Héros par défaut
+## 许可证
 
-L'application est préchargée avec 6 héros Marvel célèbres :
-- Spider-Man
-- Iron Man
-- Captain America
-- Black Widow
-- Thor
-- Hulk
-
-## Auteur
-
-Projet créé pour la gestion des héros Marvel
+MIT

@@ -1,0 +1,18 @@
+<nav class="navbar">
+  <div class="nav-container">
+    <a routerLink="/" class="nav-logo">Marvel Heroes</a>
+
+    <div class="nav-links">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Tous les héros</a>
+      <a routerLink="/favorites" routerLinkActive="active">Favoris</a>
+      <a routerLink="/labels" routerLinkActive="active">Par labels</a>
+      <a routerLink="/search" routerLinkActive="active">Recherche</a>
+    </div>
+
+    <div class="nav-user">
+      <span class="username">{{ currentUser()?.username }}</span>
+      <button (click)="handleLogout()" class="btn-logout">Déconnexion</button>
+    </div>
+  </div>
+</nav>
+

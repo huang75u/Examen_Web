@@ -1,0 +1,45 @@
+<div class="page-container">
+  <div class="page-header">
+    <h1>Rechercher par Némésis</h1>
+  </div>
+
+  <div class="search-box">
+    <input
+      type="text"
+      placeholder="Entrez le nom d'un némésis..."
+      [ngModel]="searchTerm()"
+      (ngModelChange)="searchTerm.set($event)"
+      name="searchTerm"
+      class="search-input"
+    />
+    @if (searchTerm()) {
+      <button class="clear-search" (click)="handleClearSearch()" title="Effacer">×</button>
+    }
+  </div>
+
+  @if (searchTerm() === '') {
+    <div class="empty-state">
+      <p>Entrez un nom de némésis pour commencer la recherche</p>
+    </div>
+  } @else if (filteredHeroes().length === 0) {
+    <div class="empty-state">
+      <p>Aucun héros trouvé avec le némésis "{{ searchTerm() }}"</p>
+    </div>
+  } @else {
+    <p class="results-count">
+      {{ filteredHeroes().length }} résultat{{ filteredHeroes().length > 1 ? 's' : '' }} trouvé{{
+        filteredHeroes().length > 1 ? 's' : ''
+      }}
+    </p>
+    <div class="heroes-grid">
+      @for (hero of filteredHeroes(); track hero.id) {
+        <app-hero-card [hero]="hero" (heroEdit)="handleEdit($event)" (heroDelete)="handleDelete($event)" />
+      }
+    </div>
+  }
+
+  @if (showForm()) {
+    <app-hero-form [hero]="editingHero()" (closeForm)="handleCloseForm()" />
+  }
+</div>
+

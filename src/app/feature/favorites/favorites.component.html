@@ -1,0 +1,23 @@
+<div class="page-container">
+  <div class="page-header">
+    <h1>Mes héros favoris</h1>
+  </div>
+
+  @if (favoriteHeroes().length === 0) {
+    <div class="empty-state">
+      <p>Vous n'avez pas encore de héros favoris</p>
+      <p class="hint">Cliquez sur l'étoile d'un héros pour l'ajouter à vos favoris</p>
+    </div>
+  } @else {
+    <div class="heroes-grid">
+      @for (hero of favoriteHeroes(); track hero.id) {
+        <app-hero-card [hero]="hero" (heroEdit)="handleEdit($event)" (heroDelete)="handleDelete($event)" />
+      }
+    </div>
+  }
+
+  @if (showForm()) {
+    <app-hero-form [hero]="editingHero()" (closeForm)="handleCloseForm()" />
+  }
+</div>
+
