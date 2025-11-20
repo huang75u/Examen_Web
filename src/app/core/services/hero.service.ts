@@ -1,31 +1,67 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { Hero } from '../../shared/models/hero.model';
 import { StorageService } from './storage.service';
+import { AuthService } from './auth.service';
 import { defaultHeroes } from '../../data/default-heroes';
 
 @Injectable({ providedIn: 'root' })
 export class HeroService {
   private readonly storageService = inject(StorageService);
-  private readonly STORAGE_KEY = 'marvel_heroes';
+  private readonly authService = inject(AuthService);
 
   heroes = signal<Hero[]>([]);
 
   constructor() {
-    this.loadFromStorage();
+    // 不在构造函数中加载，等待用户登录后再加载
+  }
+
+  private getStorageKey(): string {
+    const userId = this.authService.currentUser()?.id;
+    if (!userId) {
+      console.warn('No user logged in, cannot determine storage key');
+      return 'marvel_heroes_temp';
+    }
+    return `marvel_heroes_${userId}`;
   }
 
   private loadFromStorage(): void {
-    const storedHeroes = this.storageService.getItem<Hero[]>(this.STORAGE_KEY);
-    if (storedHeroes) {
+    const userId = this.authService.currentUser()?.id;
+    if (!userId) {
+      console.warn('Cannot load heroes: no user logged in');
+      this.heroes.set([]);
+      return;
+    }
+
+    const storageKey = this.getStorageKey();
+    console.log('Loading heroes for user:', userId, 'with key:', storageKey);
+    const storedHeroes = this.storageService.getItem<Hero[]>(storageKey);
+    
+    if (storedHeroes && storedHeroes.length > 0) {
+      console.log('Found existing heroes:', storedHeroes.length);
       this.heroes.set(storedHeroes);
     } else {
-      this.heroes.set(defaultHeroes);
-      this.storageService.setItem(this.STORAGE_KEY, defaultHeroes);
+      console.log('No existing heroes, creating default set');
+      const userDefaultHeroes = JSON.parse(JSON.stringify(defaultHeroes));
+      this.heroes.set(userDefaultHeroes);
+      this.storageService.setItem(storageKey, userDefaultHeroes);
     }
   }
 
   private saveToStorage(): void {
-    this.storageService.setItem(this.STORAGE_KEY, this.heroes());
+    const userId = this.authService.currentUser()?.id;
+    if (!userId) {
+      console.warn('Cannot save heroes: no user logged in');
+      return;
+    }
+
+    const storageKey = this.getStorageKey();
+    console.log('Saving heroes for user:', userId, 'with key:', storageKey);
+    this.storageService.setItem(storageKey, this.heroes());
+  }
+
+  reloadUserHeroes(): void {
+    console.log('Reloading user heroes...');
+    this.loadFromStorage();
   }
 
   addHero(hero: Omit<Hero, 'id'>): void {
